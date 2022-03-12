@@ -37,7 +37,7 @@
                 <br />in Your Gadget
               </h2>
               <p>Ayo segera pesan makanan favoritMu</p>
-              <router-link class="btn btn-lg btn-success" to="/">
+              <router-link class="btn btn-lg btn-success" to="/foods">
                 Pesan
                 <i class="bi bi-arrow-right"></i>
               </router-link>

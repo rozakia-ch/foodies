@@ -4,9 +4,9 @@
     <div class="card-body">
       <h5 class="card-title">{{product.nama}}</h5>
       <p class="card-text">Harga: Rp. {{product.harga}}</p>
-      <a href="#" class="btn btn-success">
+      <router-link class="btn btn-success" :to="'/food/'+product.id">
         <i class="bi bi-cart"></i> Pesan
-      </a>
+      </router-link>
     </div>
   </div>
 </template>
