@@ -24,9 +24,12 @@
         </ul>
         <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
           <li class="nav-item">
-            <router-link class="nav-link" to="/keranjang"
-              >Keranjang <i class="bi bi-bag"></i>
-              <span class="badge bg-success ms-2">0</span>
+            <router-link class="nav-link" to="/keranjang">
+              Keranjang
+              <i class="bi bi-bag"></i>
+              <span
+                class="badge bg-success ms-2"
+              >{{updateCarts?updateCarts.length:jumlah_pemesanan.length}}</span>
             </router-link>
           </li>
         </ul>
@@ -36,8 +39,24 @@
 </template>
 
 <script>
+import axios from "axios";
 export default {
   name: "Navbar",
+  props: ["updateCarts"],
+  data() {
+    return { jumlah_pemesanan: [] };
+  },
+  methods: {
+    setJumlah(data) {
+      this.jumlah_pemesanan = data;
+    }
+  },
+  mounted() {
+    axios
+      .get("http://localhost:3000/keranjangs")
+      .then(response => this.setJumlah(response.data))
+      .catch(error => console.log(error));
+  }
 };
 </script>
 
