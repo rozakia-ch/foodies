@@ -3,7 +3,7 @@ import Home from '../views/Home.vue'
 import Foods from '../views/Foods.vue'
 import Food from '../views/Food.vue'
 import Cart from '../views/Cart.vue'
-
+import Ordered from '../views/Ordered.vue'
 const routes = [
   {
     path: '/',
@@ -24,6 +24,11 @@ const routes = [
     path: '/keranjang',
     name: 'Cart',
     component: Cart
+  },
+  {
+    path: '/pesanan',
+    name: 'Ordered',
+    component: Ordered
   },
   {
     path: '/about',

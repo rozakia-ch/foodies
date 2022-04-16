@@ -75,6 +75,24 @@
           </div>
         </div>
       </div>
+      <!-- Form Checkout -->
+      <div class="row justify-content-end">
+        <div class="col-md-4">
+          <form class="mt-4" v-on:submit.prevent>
+            <div class="form-group mb-3">
+              <label for="nama">Nama</label>
+              <input type="text" class="form-control" v-model="pesan.nama" />
+            </div>
+            <div class="form-group mb-3">
+              <label for="noMeja">No Meja</label>
+              <input type="text" class="form-control" v-model="pesan.noMeja" />
+            </div>
+            <button type="submit" class="btn btn-success float-right" @click="checkout">
+              <i class="bi bi-cart"></i> Pesan
+            </button>
+          </form>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -89,7 +107,7 @@ export default {
     Navbar
   },
   data() {
-    return { carts: [] };
+    return { carts: [], pesan: {} };
   },
   methods: {
     setCarts(data) {
@@ -111,6 +129,35 @@ export default {
             .catch(error => console.log(error));
         })
         .catch(error => console.log(error));
+    },
+    checkout() {
+      if (this.pesan.nama && this.pesan.noMeja) {
+        this.pesan.keranjangs = this.carts;
+        axios
+          .post("http://localhost:3000/pesanans", this.pesan)
+          .then(() => {
+            this.carts.map(function(item) {
+              return axios
+                .delete("http://localhost:3000/keranjangs/" + item.id)
+                .catch(error => console.log(error));
+            });
+            this.$router.push({ path: "/pesanan" });
+            this.$toast.success("Order placed.", {
+              type: "success",
+              position: "top-right",
+              duration: 3000,
+              dismissible: true
+            });
+          })
+          .catch(error => console.log(error));
+      } else {
+        this.$toast.error("Nama dan no meja harus di isi", {
+          type: "error",
+          position: "top-right",
+          duration: 3000,
+          dismissible: true
+        });
+      }
     }
   },
   mounted() {
